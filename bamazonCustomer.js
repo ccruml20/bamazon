@@ -21,16 +21,28 @@ dataAccess.getProducts(function(productArray){
 	};
 
 	var purchasedItem = function(customerRes){
-			for (var i = 0; i < productArray.length; i++) {
-				if(customerRes.item_id == productArray[i].item){
-					var order = productArray[i];
-				}
-			}			
-			dataAccess.setProducts(customerRes);
+		for (var i = 0; i < productArray.length; i++) {
+			if(customerRes.item_id == productArray[i].item){
+				var order = productArray[i];
+			}
 		}
+		if(customerRes.stock_quantity <= 0){
+			console.log("Sorry your procuts is out of stock...");
+		}else{
+			console.log("Thanks for placing your order...")
+			dataAccess.setProducts(customerRes);
+			orderCalc();				
+		}
+		function orderCalc(){
+			var purchaseTotel = parseInt(customerRes.stock_quantity) * order.price;
+			console.log(order.price, parseInt(customerRes.stock_quantity));
+			console.log(purchaseTotel);
+		}			
 
-		customerPromt();
-		
-	});
+	}
+
+	customerPromt();
+
+});
 
 
