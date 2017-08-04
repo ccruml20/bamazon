@@ -38,6 +38,7 @@ function orderCalc(customerRes, order){
 	console.log(" Thank you for your purchase\n","from the", order.department, 
 		"department!\n", order.product,"x", parseInt(customerRes.stock_quantity),"@ $", order.price);
 	console.log("  Your Total is...", "$", purchaseTotel);
+	dataAccess.setSalesRevenue(purchaseTotel, order);
 }	
 
 function getOrderById(itemId, productArray) {

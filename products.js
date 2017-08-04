@@ -6,4 +6,5 @@ this.item = productData.item_id,
         this.quantity = productData.stock_quantity
   }
 
+
 module.exports = Product;

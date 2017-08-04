@@ -1,5 +1,6 @@
 var mysql = require("mysql");
 var Product = require("./products.js");
+var Department = require("./departments.js");
 
 var DataAccessLayer = function(port, user, password) {
 	var connection = mysql.createConnection({
@@ -60,6 +61,28 @@ var DataAccessLayer = function(port, user, password) {
 			var query = "INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES (?,?,?,?)";
 			connection.query(query, [customerRes.product_name, customerRes.department_name, customerRes.price, customerRes.stock_quantity], function(err, res) {
 				if (err) throw err;	
+			});
+		});
+	};
+	this.setSalesRevenue = function(purchaseTotel, order){
+		connection.connect(function(err) {
+			var query = "UPDATE products SET product_sales = product_sales + ? WHERE item_id=?";
+			connection.query(query, [purchaseTotel, order.item], function(err, res) {
+				if (err) throw err;	
+			});
+		});
+	};
+	this.getDepartmentSales = function(callback){
+		connection.connect(function(err) {
+			var query = "SELECT departments.department_id, departments.department_name, departments.over_head_cost, products.product_sales ";
+			 query += "FROM departments INNER JOIN products ON departments.department_name=products.department_name";
+			connection.query(query, function(err, res) {
+				departmentArray = [];
+				if (err) throw err;	
+				for (var i = 0; i < res.length; i++) {
+					departmentArray.push(new Department(res[i]));
+				}
+				callback(departmentArray);
 			});
 		});
 	};

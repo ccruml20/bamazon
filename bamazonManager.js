@@ -117,11 +117,11 @@ function addProductToInventoryPrompt(){
   }
   ])
   .then(function(customerRes) {
-    addProduct(customerRes);
+    addNewProduct(customerRes);
   });
 }
 
-function addProduct(customerRes){
+function addNewProduct(customerRes){
   dataAccess.addProductToDatabase(customerRes);
 }
 
