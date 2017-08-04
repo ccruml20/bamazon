@@ -55,10 +55,15 @@ function viewLowInventory(productArray){
 }
 
 function addInventoryPrompt(productArray){
+  for (var i = 0; i < productArray.length; i++) {
+    console.log("Department: " + productArray[i].department + "Item Id: " + 
+      productArray[i].item + " || Product: " + productArray[i].product + " || Price: " + 
+      productArray[i].price + " || Stock Quantity: " + productArray[i].quantity);
+  }
   inquirer.prompt([
   {
     type: "input",
-    message: "Add a product to your inventory.",
+    message: "What the id of the product you with to add to inventory.",
     name: "item_id",
   },
   {
