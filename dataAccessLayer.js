@@ -81,8 +81,16 @@ var DataAccessLayer = function(port, user, password) {
 				if (err) throw err;	
 				for (var i = 0; i < res.length; i++) {
 					departmentArray.push(new Department(res[i]));
-				}
+					}
 				callback(departmentArray);
+			});
+		});
+	};
+	this.addDepartmentToDatabase = function(customerRes){
+		connection.connect(function(err) {
+			var query = "INSERT INTO departments (department_name, over_head_cost) VALUES (?,?)";
+			connection.query(query, [customerRes.department_name, customerRes.over_head_cost], function(err, res) {
+				if (err) throw err;	
 			});
 		});
 	};

@@ -38,7 +38,7 @@ function switchCase(answer, productArray) {
 
 function viewProducts(answer, productArray) {
   for (var i = 0; i < productArray.length; i++) {
-    console.log("Department: " + productArray[i].department + "Item Id: " + 
+    console.log("Department: " + productArray[i].department + " || Item Id: " + 
       productArray[i].item + " || Product: " + productArray[i].product + " || Price: " + 
       productArray[i].price + " || Stock Quantity: " + productArray[i].quantity);
   }
@@ -123,6 +123,8 @@ function addProductToInventoryPrompt(){
 
 function addNewProduct(customerRes){
   dataAccess.addProductToDatabase(customerRes);
+  console.log("     updating inventort....\n", customerRes.stock_quantity,
+   "units of ", customerRes.product_name);
 }
 
 

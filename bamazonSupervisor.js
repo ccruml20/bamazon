@@ -24,12 +24,39 @@ function switchCase(answer, departmentArray) {
     viewDepartmentSales(answer, departmentArray);
     break;
     case "Create New Department":
-    addDepartment(departmentArray);
+    addDepartmentPrompt(departmentArray);
     break;
   }
 }
 
 function viewDepartmentSales(answer, departmentArray){
-  console.table(departmentArray);
+    console.table(departmentArray);
+
 }
+
+function addDepartmentPrompt(){
+  inquirer.prompt([
+  {
+    type: "input",
+    message: "Enter new Department name",
+    name: "department_name",
+  },
+
+  {
+    type: "input",
+    message: "Whats the overhead cost of the Department",
+    name: "over_head_cost",
+  }
+  ])
+  .then(function(customerRes) {
+    addNewDepartment(customerRes);
+  });
+}
+
+function addNewDepartment(customerRes){
+  dataAccess.addDepartmentToDatabase(customerRes);
+  console.log("     updating Department Data....\n", customerRes.department_name,
+   "overhead cost is... ", customerRes.over_head_cost);
+}
+
   
